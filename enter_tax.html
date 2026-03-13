@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Tax Information</title>
+    <style>
+        body { font-family: sans-serif; background: linear-gradient(135deg, #88e1b3, #d64ca6ca); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: center; width: 400px; }
+        h1 { color: #5d4037; margin-bottom: 30px; }
+        label { display: block; margin-bottom: 10px; color: #555; font-weight: bold; }
+        input[type="number"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .radio-group { margin-bottom: 15px; }
+        .radio-group label { display: inline; font-weight: normal; margin-left: 5px; }
+        .tax-input { margin-top: 10px; }
+        .button { display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #795548; color: white; border-radius: 5px; margin-top: 20px; transition: background-color 0.3s ease; }
+        .button:hover { background-color: #4e342e; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #333; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout">
+            <a href="{{ url_for('enter_savings', month_index=session['months']|count - 1) }}">Back</a>
+        </div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Tax Information</h1>
+        <form method="POST">
+            <div class="radio-group">
+                <label>Do you pay tax?</label><br>
+                <input type="radio" id="yes" name="pays_tax" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="pays_tax" value="no" checked>
+                <label for="no">No</label>
+            </div>
+
+            <div id="tax_amount_field" style="display: none;" class="tax-input">
+                <label for="tax_amount">Enter Tax Amount:</label>
+                <input type="number" id="tax_amount" name="tax_amount" value="0"><br><br>
+            </div>
+
+            <input type="submit" value="View Overall Summary" class="button">
+        </form>
+    </div>
+
+    <script>
+        const yesRadio = document.getElementById('yes');
+        const noRadio = document.getElementById('no');
+        const taxAmountField = document.getElementById('tax_amount_field');
+
+        yesRadio.addEventListener('change', function() {
+            if (this.checked) {
+                taxAmountField.style.display = 'block';
+            }
+        });
+
+        noRadio.addEventListener('change', function() {
+            if (this.checked) {
+                taxAmountField.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

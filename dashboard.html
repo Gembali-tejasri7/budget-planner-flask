@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planning Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: linear-gradient(135deg, #f0350b, #0cecf0); margin: 0; display:flex; justify-content: center; padding: 20px; min-height: 100vh; box-sizing: border-box;align-items: center;  }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { color: #e91e63; text-align: center; margin-bottom: 30px; }
+        .dashboard-links { text-align: center; margin-bottom: 20px; }
+        .dashboard-link { display: inline-block; padding: 10px 15px; text-decoration: none; background-color: #5f5fdc; color: white; border-radius: 5px; margin: 5px; transition: background-color 0.3s ease; }
+        .dashboard-link:hover { background-color: #bb3564; }
+        .back-logout { position: absolute; top: 50px; left: 30px; }
+        .logout-button { position: absolute; top: 50px; right: 30px; }
+        .logout-button a , .back-logout a{ padding: 8px 15px; text-decoration: none; background-color: #f6f7f6; color: rgb(20, 17, 17); border-radius: 5px; transition: background-color 0.3s ease; }
+        .logout-button a:hover, .back-logout a:hover { background-color: #2ad373; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logout-button">
+            <a href="{{ url_for('logout') }}">Log Out</a></div>
+        <div class="back-logout">
+            <a href="{{ url_for('login') }}">Back</a>
+        </div>
+        <h1>Welcome to Budget Planning Application</h1>
+        <div class="dashboard-links">
+            <a href="{{ url_for('select_months') }}" class="dashboard-link">Set Budgeting Period</a>
+            <a href="{{ url_for('enter_income', month_index=0) }}" class="dashboard-link">Enter Income</a>
+            <a href="{{ url_for('select_categories', month_index=0) }}" class="dashboard-link">Select Categories</a>
+            <a href="{{ url_for('enter_expenses', month_index=0) }}" class="dashboard-link">Enter Expenses</a>
+            <a href="{{ url_for('enter_savings', month_index=0) }}" class="dashboard-link">Enter Savings</a>
+            <a href="{{ url_for('enter_tax') }}" class="dashboard-link">Enter Tax</a>
+            <a href="{{ url_for('combined_summary') }}" class="dashboard-link">Summary</a>
+            <a href="{{ url_for('monthly_summary') }}" class="dashboard-link">Monthly Summary</a>
+            <a href="{{ url_for('pie_chart') }}" class="dashboard-link">Pie Chart</a>
+            <a href="{{ url_for('bar_chart') }}" class="dashboard-link">Bar Chart</a>
+        </div>
+    </div>
+</body>
+</html>

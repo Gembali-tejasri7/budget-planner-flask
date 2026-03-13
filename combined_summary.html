@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Budget Summary</title>
+    <style>
+        /* Add your styling here */
+        body { font-family: sans-serif; background: linear-gradient(135deg, #b2dfdb, #b3e5fc); margin: 0; padding: 20px; min-height: 100vh; box-sizing: border-box; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
+        h1 { color: #0277bd; text-align: center; margin-bottom: 30px; }
+        h2 { color: #0277bd; border-bottom: 2px solid #0277bd; padding-bottom: 10px; margin-top: 20px; }
+        .summary-item { margin-bottom: 10px; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #333; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+        .charts-link, .combined-link { text-align: center; margin-top: 30px; }
+        .charts-link a, .combined-link a { display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #03a9f4; color: white; border-radius: 5px; margin: 5px; transition: background-color 0.3s ease; }
+        .charts-link a:hover, .combined-link a:hover { background-color: #0288d1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout"><a href="{{ url_for('monthly_summary') }}">Back</a></div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Combined Budget Summary</h1>
+
+        <h2>Total Income</h2>
+        <p class="summary-item"><strong>Total Income for All Months:</strong> {{ combined_data.total_income }}</p>
+
+        <h2>Total Expenses</h2>
+        {% if combined_data.total_expenses %}
+        <ul>
+            {% for category, total in combined_data.total_expenses.items() %}
+            <li><strong>{{ category }}:</strong> {{ total }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="summary-item">No expenses entered for any month.</p>
+        {% endif %}
+
+        <h2>Total Savings</h2>
+        <p class="summary-item"><strong>Total Savings for All Months:</strong> {{ combined_data.total_savings }}</p>
+
+        {% if combined_data.tax > 0 %}
+        <h2>Total Tax</h2>
+        <p class="summary-item"><strong>Total Tax Paid:</strong> {{ combined_data.tax }}</p>
+        {% endif %}
+        <div class="charts-link">
+            <a href="{{ url_for('pie_chart') }}">View Pie Chart</a>
+            <a href="{{ url_for('bar_chart') }}">View Bar Chart</a>
+        </div>
+        <div class="combined-link">
+            <a href="{{ url_for('monthly_summary') }}">View Monthly Summary</a>
+        </div>
+    </div>
+</body>
+</html>

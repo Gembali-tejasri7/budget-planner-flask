@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add your styling here */
+        body { font-family: sans-serif; background: linear-gradient(135deg, #b2ebf2, #4dd0e1); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { color: #00bcd4; margin-bottom: 30px; }
+        .chart-container { width: 600px; height: 400px; margin: 0 auto; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #333; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout"><a href="{{ url_for('monthly_summary') }}">Back</a></div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Monthly Expense Bar Chart</h1>
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const monthlyExpenses = {{ monthly_expenses|tojson }};
+        const correctMonthOrder = ["January", "February", "March", "April", "May", "June",
+                                   "July", "August", "September", "October", "November", "December"];
+        const orderedExpensesData = [];
+        const orderedLabels = [];
+
+        correctMonthOrder.forEach(month => {
+            if (monthlyExpenses.hasOwnProperty(month)) {
+                orderedExpensesData.push(monthlyExpenses[month]);
+                orderedLabels.push(month);
+            } else {
+                orderedExpensesData.push(0); // If a month has no data, show 0
+                orderedLabels.push(month);
+            }
+        });
+
+        const backgroundColor = 'rgba(0, 123, 255, 0.7)';
+        const borderColor = 'rgba(0, 123, 255, 1)';
+
+        const ctx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: orderedLabels, // Use our explicitly ordered labels
+                datasets: [{
+                    label: 'Total Expenses per Month',
+                    data: orderedExpensesData, // Use the data in the same order
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Total Expenses'
+                        },
+                        beginAtZero: true
+                    },
+                    x: {
+                        type: 'category',
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        },
+                        ticks: {
+                            autoSkip: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Expenses per Month'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

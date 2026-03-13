@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planning Application</title>
+    <style>
+        body { font-family: sans-serif; background: linear-gradient(135deg, #a83d71, #1ba58c); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { color: #0d47a1; margin-bottom: 30px; }
+        .button { display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #42a5f5; color: white; border-radius: 5px; margin: 10px; transition: background-color 0.3s ease; }
+        .button:hover { background-color: #1e88e5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Budget Planning Application</h1>
+        <div>
+            <a href="{{ url_for('signup') }}" class="button">Sign Up</a>
+            <a href="{{ url_for('login') }}" class="button">Log In</a>
+        </div>
+    </div>
+</body>
+</html>

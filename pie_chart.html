@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Pie Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add your styling here */
+        body { font-family: sans-serif; background: linear-gradient(135deg, #ffe082, #ffca28); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { color: #f9a825; margin-bottom: 30px; }
+        .chart-container { width: 400px; height: 400px; margin: 0 auto; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #333; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout"><a href="{{ url_for('monthly_summary') }}">Back</a></div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Budget Pie Chart</h1>
+        <div class="chart-container">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const categoryTotals = {{ category_totals|tojson }};
+        const labels = Object.keys(categoryTotals);
+        const data = Object.values(categoryTotals);
+        const backgroundColors = [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(120, 120, 120, 0.6)',
+            'rgba(200, 200, 200, 0.6)'
+            // Add more colors if you have more categories
+        ];
+        const borderColors = labels.map((_, index) => backgroundColors[index].replace('0.6', '1'));
+
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Expense Distribution',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Expense Distribution by Category'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

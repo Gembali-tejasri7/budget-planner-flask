@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Expenses for {{ month }}</title>
+    <style>
+        /* Add your styling here */
+        body { font-family: sans-serif; background: linear-gradient(135deg, #e5ed47, #5ef0f3); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: left; width: 400px; }
+        h1 { color: #e65100; margin-bottom: 20px; text-align: center; }
+        .expense-category { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="number"] { padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px; width: 200px; }
+        .travel-options { margin-left: 20px; }
+        button { padding: 10px 20px; background-color: #ff7043; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease; }
+        button:hover { background-color: #e64a19; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #333; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+        .button-container { text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout"><a href="{{ url_for('select_categories', month_index=month_index) }}">Back</a></div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Enter Expenses for {{ month }}</h1>
+        <form method="POST">
+            {% for category in categories %}
+            <div class="expense-category">
+                <label>{{ category }}:</label>
+                {% if category == 'Travel' %}
+                <div class="travel-options">
+                    {% for option in travel_options %}
+                    <label for="expense_{{ option.lower() }}">{{ option }}:</label>
+                    <input type="number" id="expense_{{ option.lower() }}" name="expense_{{ option.lower() }}" placeholder="Enter amount"><br>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <input type="number" id="expense_{{ category.lower() }}" name="expense_{{ category.lower() }}" placeholder="Enter amount"><br>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="button-container">
+                <button type="submit">Next</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Categories for {{ month }}</title>
+    <style>
+        /* Add your styling here */
+        body { font-family: sans-serif; background: linear-gradient(135deg, #217379, #10e617); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background-color: rgba(255, 255, 255, 0.8); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); text-align: left; width: 400px; }
+        h1 { color: #388e3c; margin-bottom: 20px; text-align: center; }
+        .category-item { margin-bottom: 10px; }
+        input[type="checkbox"] { margin-right: 5px; }
+        button { padding: 10px 20px; background-color: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease; }
+        button:hover { background-color: #388e3c; }
+        .back-logout { position: absolute; top: 20px; left: 20px; }
+        .logout-button { position: absolute; top: 20px; right: 20px; }
+        .back-logout a, .logout-button a { color: #181616; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; margin: 5px; }
+        .back-logout a:hover, .logout-button a:hover { background-color: #e0e0e0; }
+        .button-container { text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-logout"><a href="{{ url_for('enter_income', month_index=month_index) }}">Back</a></div>
+        <div class="logout-button"><a href="{{ url_for('logout') }}">Log Out</a></div>
+        <h1>Select Categories for {{ month }}</h1>
+        <form method="POST">
+            {% for category in categories %}
+            <div class="category-item">
+                <input type="checkbox" id="{{ category.lower() }}" name="categories" value="{{ category }}">
+                <label for="{{ category.lower() }}">{{ category }}</label>
+            </div>
+            {% endfor %}
+            <div class="button-container">
+                <button type="submit">Next</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
