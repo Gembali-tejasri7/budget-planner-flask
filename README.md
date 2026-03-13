@@ -1,7 +1,12 @@
 # Budget Planner Web Application
 
 ## Description
-This project is a web-based budget planner that helps users track income, expenses, and savings. The application allows users to manage their financial data and view summaries of their spending.
+The Budget Planner is a web-based application developed using Python Flask that helps users manage their personal finances.  
+The application allows users to enter income, track expenses across different categories, set savings goals, and view financial summaries.
+
+This project demonstrates the use of backend development using Flask and frontend design using HTML and CSS.
+
+---
 
 ## Technologies Used
 - Python
@@ -9,38 +14,62 @@ This project is a web-based budget planner that helps users track income, expens
 - HTML
 - CSS
 
+---
+
 ## Features
-- Add monthly income
-- Track different expense categories
+- Record monthly income
+- Track expenses by categories
 - Manage savings goals
-- View financial summary
+- View financial summaries
+- Simple and user-friendly interface
+
+---
 
 ## Project Structure
 budget-planner-flask/
 │
 ├── app.py
+│
 ├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── summary.html
+│ ├── login.html
+│ ├── index.html
+│ ├── income.html
+│ ├── expenses.html
+│ ├── savings.html
+│ ├── summary.html
 │
 ├── static/
-│   ├── style.css
+│ ├── style.css
 │
 └── README.md
 
+
+---
+
 ## How to Run the Project
-1. Install Python
-2. Install Flask
-3. Run the command:
 
-   python app.py
+1. Install Python on your system
+2. Install Flask using pip
+    pip install flask
+3. Navigate to the project folder
+cd budget-planner-flask
+4. Run the Flask application
+python app.py
+5. Open your browser and go to
+http://localhost:5000
 
-4. Open your browser and go to:
 
-   http://localhost:5000
+---
 
 ## Future Improvements
-- Add database support
-- Improve user interface
-- Add data visualization charts
+- Add database support for storing user data
+- Implement user authentication
+- Add advanced data visualization charts
+- Improve user interface design
+
+---
+
+## Author
+Gembali Teja Sri  
+Computer Science Engineering Student
+Ho
