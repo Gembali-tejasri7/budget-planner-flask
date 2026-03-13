@@ -25,27 +25,6 @@ This project demonstrates the use of backend development using Flask and fronten
 
 ---
 
-## Project Structure
-budget-planner-flask/
-│
-├── app.py
-│
-├── templates/
-│ ├── login.html
-│ ├── index.html
-│ ├── income.html
-│ ├── expenses.html
-│ ├── savings.html
-│ ├── summary.html
-│
-├── static/
-│ ├── style.css
-│
-└── README.md
-
-
----
-
 ## How to Run the Project
 
 1. Install Python on your system
@@ -72,4 +51,4 @@ http://localhost:5000
 ## Author
 Gembali Teja Sri  
 Computer Science Engineering Student
-Ho
+
